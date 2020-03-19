@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get ('/', function (req, res, next)
 {
-  res.render('login', {title:config['name'], errormg:false});
+  res.render('index', {});
 });
 
 

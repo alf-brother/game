@@ -14,10 +14,11 @@ var session = require('express-session');
 //var side_play 	= require ('./sides/play');
 //var side_user   = require ('./sides/user');
 
-var side_index   = require ('./routes/index');
+var side_index  = require ('./routes/index');
 var app = express();
 
 // setup session
+/*
 app.use(session({
     secret: 'b32933251f8d100792c03e4c0f4035e3',
     resave: false,
@@ -26,7 +27,7 @@ app.use(session({
         maxAge: 3600000 * 2
     }
 }));
-
+*/
 app.set ('views', path.join(__dirname, 'views'));
 app.set ('view engine', 'ejs');
 app.engine ('ejs', require ('express-ejs-extend'));
@@ -47,15 +48,15 @@ app.use(logger);
 
 // authentication middleware
 app.use((req, res, next) => {
-//    let _ = require('underscore');
-    let openPath = ['/login', '/style/style.css'];
-    if (req.session.username !== undefined ||
+    let _ = require('underscore');
+    let openPath = ['/', '/style/style.css'];
+    if (req.path.startsWith("/") ||
         req.path.startsWith("/style") ||
         req.path.startsWith("/login") ||
         req.path.startsWith("/favicon.ico")) {
         return next();
     }
-    res.redirect("login");
+    res.redirect("/");
 });
 
 //app.use ('/logout', side_logout);
@@ -65,7 +66,7 @@ app.use((req, res, next) => {
 //app.use ('/docu', side_doku);
 //app.set ('port', port);
 
-app.set ('/', side_index);
+app.use('/', side_index);
 
 const server = http.createServer(app);
 
