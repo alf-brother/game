@@ -1,7 +1,7 @@
 const http = require('http');
 
 const hostname = '127.0.0.1';
-const port = 3000;
+const port = 8001;
 
 var express = require ('express');
 var path = require ('path');
@@ -9,12 +9,12 @@ var cookieParser = require ('cookie-parser');
 
 var session = require('express-session');
 
-var side_logout  = require ('./sides/logout');
-var side_login 	= require ('./sides/login');
-var side_play 	= require ('./sides/play');
-var side_user   = require ('./sides/user');
-var side_doku   = require ('./sides/docu');
+//var side_logout  = require ('./sides/logout');
+//var side_login 	= require ('./sides/login');
+//var side_play 	= require ('./sides/play');
+//var side_user   = require ('./sides/user');
 
+var side_index   = require ('./routes/index');
 var app = express();
 
 // setup session
@@ -47,7 +47,7 @@ app.use(logger);
 
 // authentication middleware
 app.use((req, res, next) => {
-    let _ = require('underscore');
+//    let _ = require('underscore');
     let openPath = ['/login', '/style/style.css'];
     if (req.session.username !== undefined ||
         req.path.startsWith("/style") ||
@@ -58,12 +58,15 @@ app.use((req, res, next) => {
     res.redirect("login");
 });
 
-app.use ('/logout', side_logout);
-app.use ('/login', side_login);
-app.use ('/game', side_play);
-app.use ('/user', side_user);
-app.use ('/docu', side_doku);
-app.set ('port', port);
+//app.use ('/logout', side_logout);
+//app.use ('/login', side_login);
+//app.use ('/game', side_play);
+//app.use ('/user', side_user);
+//app.use ('/docu', side_doku);
+//app.set ('port', port);
+
+app.set ('/', side_index);
+
 const server = http.createServer(app);
 
 server.listen(port, hostname, () => {
