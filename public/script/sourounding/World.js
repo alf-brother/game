@@ -1,3 +1,9 @@
+/*
+ * class World
+ * This class has the basic infromation about the world of the curent level.
+ * author: ALF
+ * date:2020-03-20
+ */
 class World
 {
   constructor (init={

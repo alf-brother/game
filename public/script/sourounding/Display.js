@@ -1,3 +1,12 @@
+/*
+ * class Display
+ * This class handles the displaying of the world and the player.
+ * The class needs the id of the canvas to print in, a player object
+ * and a world. If this three things are not providet a exception will
+ * be thrown.
+ * author: ALF
+ * date: 2020-03-20
+ */
 class Display
 {
   constructor (init={canvasid=null, player=null, world=null})
@@ -11,6 +20,10 @@ class Display
     if (init.world == null) throw DisplayException ("No wolrd defined!"); 
     this.world = init.world;
   }
+  /*
+   * render ()
+   * This function renders the map and the player.
+   */
   render ()
   {
     let tilex= Math.floor((this.player.x) / this.world.tile_size);
@@ -32,6 +45,10 @@ class Display
       this.player.height
       );
   }
+  /*
+   * resize (event)
+   * This function handles the event if the window would be resized.
+   */
   resize (event)
   {
     let client_height = document.documentElement.clientHeight;
